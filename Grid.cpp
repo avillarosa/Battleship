@@ -18,6 +18,8 @@ private:
 	bool playerMarkGrid[10][10];
 	bool aiMarkGrid[10][10];
 
+	int aiHitCounter;
+	bool detWinner;
 public:
 	Grid() {
 		//initialzing the player and ai view board to '-'
@@ -41,6 +43,10 @@ public:
 				aiMarkGrid[i][j] = false;
 			}
 		}
+
+		//initializing aiHitCounter
+		aiHitCounter = 0;
+		bool detWinner = false;
 	}
 
 	void printPlayerGrid() {
@@ -141,6 +147,10 @@ public:
 		if (aiMapGrid[x][y] == 1) {
 			updateAIViewBoard(x, y, 'H');
 			aiMarkGrid[x][y] = true;
+			aiHitCounter++;
+			if(aiHitCounter == 15){
+				detWinner = true;
+			}
 		}
 		else {
 			updateAIViewBoard(x, y, 'M');
@@ -161,6 +171,10 @@ public:
 
 	void updateAIViewBoard(int xCor, int yCor, char c) {
 		aiViewGrid[xCor][yCor] = c;
+	}
+	
+	bool getWinner(){
+		return detWinner;
 	}
 	
 };
